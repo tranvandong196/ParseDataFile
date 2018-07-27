@@ -1,5 +1,5 @@
 <?php
-require_once ('IDataParser.php');
+
 
 class CSVParser implements IDataParser
 {

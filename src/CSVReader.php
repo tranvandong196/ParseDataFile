@@ -1,6 +1,5 @@
 <?php
 
-require_once ('IFileReader.php');
 
 class CSVReader implements IFileReader
 {
