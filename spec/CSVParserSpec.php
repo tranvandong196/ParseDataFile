@@ -20,7 +20,7 @@ class CSVParserSpec extends ObjectBehavior
 
     function it_return_an_seperative_data_with_array_type_when_parse_data()
     {
-        $dataOrigin = "Ling,Mai,55900\r\nJohnson,Jim,56500";
+        $dataOrigin = "Ling,Mai,55900\nJohnson,Jim,56500";
         $this->importData($dataOrigin);
 
         $dataSeperation = [['Ling','Mai','55900'],['Johnson','Jim','56500']];

@@ -1,6 +1,5 @@
 <?php
 
-
 class CSVReader implements IFileReader
 {
     protected $csvName;
@@ -14,9 +13,12 @@ class CSVReader implements IFileReader
 
     public function open($filename, $option)
     {
+//        echo "\nCSVReader.dir: ".__DIR__."\n";
+//        echo "file: ".$filename."\n";
         if (!file_exists($filename)) {
             throw new Exception('File is not exist!');
         }
+
 
         $this->csvFile = fopen($filename, $option);
         if (!$this->csvFile) {

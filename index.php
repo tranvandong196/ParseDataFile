@@ -9,7 +9,7 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 
-$filename = __DIR__.'\\assets\\data.csv';
+$filename = __DIR__.'/assets/data.csv';
 
 $employees = new Employees();
 

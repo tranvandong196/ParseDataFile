@@ -20,7 +20,7 @@ class CSVParser implements IDataParser
 
     public function parseToArray()
     {
-        $dataLine = explode("\r\n", $this->data);
+        $dataLine = explode("\n", $this->data);
         $dataSeperation = array();
 
         foreach ($dataLine as $value) {
