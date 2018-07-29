@@ -11,10 +11,14 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $filename = __DIR__.'/assets/data.csv';
 
-$employees = new Employees();
 
-$employees->importData($filename, new CSVReader(), new CSVParser());
+$file = FileManager::open($filename, 'r');
 
-$employees->sortBySalaryDecrease();
 
-$employees->showEmployees();
+//$employees = new Employees();
+//
+//$employees->import($filename, new CSVReader(), new CSVParser());
+//
+//$employees->sortBySalaryDecrease();
+//
+//$employees->showEmployees();

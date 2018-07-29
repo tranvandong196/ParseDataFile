@@ -2,31 +2,38 @@
 
 class Employees
 {
-    public $employees = array();
+    private $employees = [];
 
-    public function __construct()
+    public function import($filename, $fileReaderDriver, $dataParserDriver)
     {
-    }
-
-    public function importData($filename, $FileReaderDriver, $DataPasserDriver)
-    {
-        if (!$filename || !$FileReaderDriver || !$DataPasserDriver) {
-            throw new InvalidArgumentException('Arguments must not null');
+        if (!$filename || !$fileReaderDriver || !$dataParserDriver) {
+            throw new InvalidArgumentException('All of arguments must not null');
         }
 
-        $FileReaderDriver->open($filename, 'r');
+        $fileReaderDriver->open($filename, 'r');
+        $data = $fileReaderDriver->getData();
 
-        $dataSeperationArray = $FileReaderDriver->parseData($DataPasserDriver)->parseToArray();
+        $dataParserDriver->import($data);
+        $dataParserDriver->parse();
 
-        foreach ($dataSeperationArray as $item) {
-            $this->employees[] = new Employee($item[0], $item[1], floatval($item[2]));
+        $csv = $dataParserDriver->getDataAsArray();
+
+
+        if (count($csv) === 0) return false;
+
+        foreach ($csv as $row) {
+            $this->employees[] = new Employee($row[0], $row[1], floatval($row[2]));
         }
+
+        return true;
     }
 
     public function showEmployees()
     {
         echo $this->formatToTable();
     }
+
+
 
     public function getMaxSizeColumn()
     {

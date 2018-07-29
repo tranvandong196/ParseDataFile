@@ -1,37 +1,50 @@
 <?php
 
-
 class CSVParser implements IDataParser
 {
-    private $data;
+    private $source = "";
+    private $csv = [];
+    private $headers = [];
 
-    public function __construct()
+    /**
+     * @param null $source: string
+     */
+    public function import($source = null)
     {
-
-    }
-
-    public function importData($data = null)
-    {
-        if (!$data) {
+        if (!$source) {
             throw new InvalidArgumentException('Function must have an agrument: $data');
         }
-        $this->data = $data;
+        $this->source = $source;
     }
 
-    public function parseToArray()
+    /**
+     * parse data from $this->source to array, then assign to csv attribute
+     */
+    public function parse()
     {
-        $dataLine = explode("\n", $this->data);
-        $dataSeperation = array();
+        $rows = explode("\n", $this->source);
 
-        foreach ($dataLine as $value) {
-            $dataSeperation[] = explode(',', $value);
+        $result = [];
+        foreach ($rows as $row) {
+            $result[] = explode(',', $row);
         }
 
-        return $dataSeperation;
+        $this->csv = $result;
     }
 
-    function getOriginData()
+    /**
+     * @return array
+     */
+    public function getDataAsArray()
     {
-        return $this->data;
+        return $this->csv;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSource()
+    {
+        return $this->source;
     }
 }

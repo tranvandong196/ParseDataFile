@@ -2,51 +2,25 @@
 
 class CSVReader implements IFileReader
 {
-    protected $csvName;
-    protected $csvFile;
-    protected $data;
+    private $csvName;
+    private $csvFile;
+    private $data;
 
-    public function __construct()
-    {
-
-    }
-
+    /**
+     * @param $filename: string
+     * @param $option: string
+     * @return bool
+     * @throws Exception
+     */
     public function open($filename, $option)
     {
-//        echo "\nCSVReader.dir: ".__DIR__."\n";
-//        echo "file: ".$filename."\n";
-        if (!file_exists($filename)) {
-            throw new Exception('File is not exist!');
-        }
-
-
-        $this->csvFile = fopen($filename, $option);
-        if (!$this->csvFile) {
-            throw new Exception("Can't open file {$filename}");
-            return false;
-        }
-
-        $this->csvName = $filename;
-
-        $this->data = fread($this->csvFile, filesize($filename));
-
+        $file = FileManager::open($filename, $option);
+        $this->data = FileManager::read($file, filesize($filename));
         return true;
     }
 
     public function getData()
     {
         return $this->data;
-    }
-
-    /**
-     * @param IDataParser
-     *
-     *
-     * @return IDataParser
-     */
-    public function parseData($DataParserDriver)
-    {
-        $DataParserDriver->importData($this->data);
-        return $DataParserDriver;
     }
 }

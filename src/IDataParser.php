@@ -6,13 +6,14 @@
  * Time: 12:58 PM
  */
 
+
 interface IDataParser
 {
-    public function __construct();
+    public function import($data);
 
-    public function importData($data);
+    public function parse();
 
-    public function getOriginData();
+    public function getSource();
 
-    public function parseToArray();
+    public function getDataAsArray();
 }
