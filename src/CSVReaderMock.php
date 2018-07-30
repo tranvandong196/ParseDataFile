@@ -7,15 +7,31 @@
  * Time: 10:22 PM
  */
 
-class CSVReaderMock implements IFileReader
+class CSVReaderMock implements ICSVReader
 {
+    private $isDataEmpty = false;
     public function open($filename, $option)
     {
         return true;
     }
 
-    public function getData()
+    public function getCsv()
     {
-        return "Ling,Mai,55900\nJohnson,Jim,56500";
+        return $this->isDataEmpty ?
+            [] : [
+                ["Dong", "Tran", 60400],
+                ["Hoang", "Loan", 50300],
+                ["Dieu", "Nhi", 23000]
+            ];
+    }
+
+    public function setDataEmpty()
+    {
+        $this->isDataEmpty = true;
+    }
+
+    public function getSource()
+    {
+        return "Dong, Tran, 6040\nHoang, Loan, 50300\nDieu, Nhi, 23000";
     }
 }

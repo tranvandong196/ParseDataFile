@@ -9,16 +9,23 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 
-$filename = __DIR__.'/assets/data.csv';
+$filename = __DIR__ . '/assets/data.csv';
 
+$csvReader = new CSVReader();
+try {
+    $csvReader->open($filename, 'r', null);
+} catch (Exception $e) {
+    echo "ERROR: " . $e->getMessage();
+}
+$csvReader->parse();
 
-$file = FileManager::open($filename, 'r');
+$csv = $csvReader->getCsv();
 
+$csvFormatter = new CSVFormatter();
+$csvFormatter->import($csv);
 
-//$employees = new Employees();
-//
-//$employees->import($filename, new CSVReader(), new CSVParser());
-//
-//$employees->sortBySalaryDecrease();
-//
-//$employees->showEmployees();
+$csvFormatter->setHeaders(['Last', 'First', 'Salary']);
+$csvFormatter->sortBySalaryDecrease();
+
+echo $csvFormatter->toString();
+

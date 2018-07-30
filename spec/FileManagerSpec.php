@@ -23,7 +23,7 @@ class FileManagerSpec extends ObjectBehavior
         $filename = FileManager::root().'assets/data.txt';
         $file = $this->open($filename, 'r');
 
-        $result = "Ling,Mai,55900\nJohnson,Jim,56500";
+        $result = "Ling,Mai,55900\r\nJohnson,Jim,56500";
 
         $this->read($file, filesize($filename))->shouldReturn($result);
     }
