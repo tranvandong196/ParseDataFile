@@ -4,6 +4,14 @@ class CSVFormatter implements ICSVFormatter
 {
     private $csv = [];
 
+    /**
+     * @return array
+     */
+    public function getCsv(): array
+    {
+        return $this->csv;
+    }
+
     private $headers = [];
 
     /**
@@ -22,7 +30,7 @@ class CSVFormatter implements ICSVFormatter
     /**
      * @param  $source : []
      */
-    public function import($csv = [])
+    public function import(array $csv = [])
     {
         if (!$csv) {
             throw new InvalidArgumentException('Function must have an agrument: $csv');
@@ -32,8 +40,6 @@ class CSVFormatter implements ICSVFormatter
 
     public function toString()
     {
-        $this->formatCurrency();
-
         $result = "";
         $widthOfCols = $this->getMaxWidthColumns(3);
 
@@ -48,7 +54,7 @@ class CSVFormatter implements ICSVFormatter
         return $result;
     }
 
-    private function formatCurrency()
+    public function formatCurrency()
     {
         setlocale(LC_MONETARY, 'en_US');
         foreach ($this->csv as $keyA => $row) {
@@ -67,9 +73,9 @@ class CSVFormatter implements ICSVFormatter
         for ($i = 0; $i < $countCsv - 1; $i++) {
             for ($j = $i + 1; $j < $countCsv; $j++) {
                 if ($this->csv[$i][$col] < $this->csv[$j][$col]) {
-                    $tmp = $this->csv[$i][$col];
-                    $this->csv[$i][$col] = $this->csv[$j][$col];
-                    $this->csv[$j][$col] = $tmp;
+                    $tmp = $this->csv[$i];
+                    $this->csv[$i] = $this->csv[$j];
+                    $this->csv[$j] = $tmp;
                 }
             }
         }

@@ -32,4 +32,47 @@ class CSVFormatterSpec extends ObjectBehavior
     {
         $this->setHeaders(['One'])->shouldBe(true);
     }
+
+    function it_return_formatted_salary_as_US_currency_if_call_formatCurrency()
+    {
+        $this->importMockData();
+        $this->formatCurrency();
+
+        $result = [
+            ["Dong", "Tran", '$60,400.00'],
+            ["Dieu", "Nhi", '$23,000.00'],
+            ["Hoang", "Loan", '$50,300.00']
+        ];
+
+        $this->getCsv()->shouldReturn($result);
+    }
+
+    function it_sort_by_salary_decrease()
+    {
+        $this->importMockData();
+        $this->sortBySalaryDecrease();
+
+        $result = [
+            ["Dong", "Tran", 60400.00],
+            ["Hoang", "Loan", 50300.00],
+            ["Dieu", "Nhi", 23000.00]
+        ];
+
+        $this->getCsv()->shouldReturn($result);
+    }
+
+    function it_return_string_type_when_call_toString()
+    {
+        $this->importMockData();
+
+        $this->toString()->shouldBeString();
+    }
+
+    public function importMockData(): void
+    {
+        $csvReaderMock = new \CSVReaderMock();
+        $csv = $csvReaderMock->getCsv();
+
+        $this->import($csv);
+    }
 }

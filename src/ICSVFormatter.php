@@ -9,7 +9,9 @@
 
 interface ICSVFormatter
 {
-    public function import($csv);
+    public function import(array $csv);
+
+    public function getCsv();
 
     public function toString();
 

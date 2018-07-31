@@ -10,18 +10,23 @@
 class CSVReaderMock implements ICSVReader
 {
     private $isDataEmpty = false;
-    public function open($filename, $option)
+    public function open($filename, $option, $fileManager)
     {
         return true;
+    }
+
+    public function parse()
+    {
+
     }
 
     public function getCsv()
     {
         return $this->isDataEmpty ?
             [] : [
-                ["Dong", "Tran", 60400],
-                ["Hoang", "Loan", 50300],
-                ["Dieu", "Nhi", 23000]
+                ["Dong", "Tran", 60400.00],
+                ["Dieu", "Nhi", 23000.00],
+                ["Hoang", "Loan", 50300.00]
             ];
     }
 

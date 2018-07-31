@@ -24,8 +24,10 @@ $csv = $csvReader->getCsv();
 $csvFormatter = new CSVFormatter();
 $csvFormatter->import($csv);
 
+
 $csvFormatter->setHeaders(['Last', 'First', 'Salary']);
 $csvFormatter->sortBySalaryDecrease();
+$csvFormatter->formatCurrency();
 
 echo $csvFormatter->toString();
 
